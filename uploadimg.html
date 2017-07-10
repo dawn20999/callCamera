@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+        <meta name="format-detection" content="telephone=no" />
+	<title>Document</title>
+	<style>
+		.evaluateImgCon {
+        padding: 15px 0;
+        margin: 0 -5px;
+        font-size: 0;
+
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+
+
+        -webkit-box-lines: multiple;
+        -webkit-flex-wrap: wrap;
+        -moz-flex-wrap: wrap;
+        flex-wrap: wrap;
+
+        flex-direction: row;
+
+        justify-content: flex-start;
+
+        /*margin-bottom: 95px;*/
+    }
+    .evaluateImgItem {
+        position: relative;
+        margin: 0 5px;
+        margin-bottom: 11px;
+        display: inline-block;
+    }
+    .evaluateImgItem .uploading-box,
+    .evaluateImgItem .error-box{
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 78px;
+        height: 78px;
+        line-height: 78px;
+        background-color: rgba(0,0,0,.6);
+        color: #fff;
+        text-align: center;
+        font-size: 14px;
+    }
+    .evaluateImgItem.uploading .uploading-box{
+        display: block;
+    }
+    .evaluateImgItem.error .error-box{
+        display: block;
+    }
+    .evaluateImgItem .cover{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 20px;
+        line-height: 20px;
+        font-size: 12px;
+        text-align: center;
+        background-color: rgba(0,0,0,.4);
+        color: #fff;
+    }
+    /*.evaluateImgItem:nth-child(4n) {
+        margin-right: 0;
+    }*/
+    .evaluateImg {
+        width: 78px;
+        height: 78px;
+    }
+    .delIcon {
+        position: absolute;
+        width: 19px;
+        height: 19px;
+        background: #E6454A;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        top: -6px;
+        right: -7.5px;
+    }
+    .delIcon::before {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        content: '';
+        top: -4px;
+        left: -6px;
+        z-index: 99;
+    }
+    .delIcon::after {
+        position: absolute;
+        width: 9px;
+        height: 1px;
+        content: '';
+        background: #FFFFFF;
+        top: 7.5px;
+        left: 4px;
+    }
+    .evaluateUploadImg {
+        position: relative;
+        width: 78px;
+        height: 78px;
+        margin: 0 5px;
+        background: #f1f1f1;
+        border: 1px solid #dfdfdf;
+        display: inline-block;
+    }
+    .uploadIcon {
+        position: absolute;
+        height: 27px;
+        width: 29px;
+        top: 25.5px;
+        left: 24.5px;
+        background: url(../../assets/images/icon_camera.png) 0 0 no-repeat;
+        background-size: 100% 100%;
+        display: block;
+    }
+    .tpls,
+    .uploadFile{
+        height: 0;
+        width: 0;
+        visibility: hidden;
+        overflow: hidden;
+    }
+	</style>
+</head>
+<body>
+	<div class="evaluateImgCon">
+
+         <section class="evaluateImgItem">
+            <img src="" alt="" class="evaluateImg"/>
+           <div class="uploading-box">上传中...</div>
+            <!-- <div class="error-box">上传失败</div> -->
+            <div class="cover" v-if="index === 0">封面</div>
+            <span class="delIcon"></span>
+        </section>
+
+        <div class="evaluateUploadImg">
+            <span class="uploadIcon"></span>
+            <input type="file" class="uploadFile" accept="image/*" capture="camera" id="uploadFileId" multiple="multiple">
+        </div>
+    </div>
+    <script src="js/exif.js"></script>
+    <script src="js/toBlob.js"></script>
+    <script src="js/jquery-3.2.1.js"></script>
+    <script>
+
+    	function uploadImg(e) {
+            for(var i = 0; i < e.target.files.length; i ++) {
+                if(e.target.files[i] && /image\/\w+/.test(e.target.files[i].type)) {
+                    var curImg = {
+                        data: '',
+                        url: '',
+                        isUploading: true,
+                        isError: false
+                    }
+                    analyzeImg(e.target.files[i], (file, data) => {
+                        curImg.data = data
+                        //let curIndex = this.imagePreviewList.length - 1
+
+                        var formData = new FormData
+                        formData.append('image', file)
+                        
+                        $('.evaluateImg').attr('src', curImg.data)
+                        $.ajax({
+                        	url:'http://www.baidu.com',
+                        	formData,
+                        	success:function (){
+								
+                        	},
+                        	error: function (){
+
+                        	}
+                        })
+                        
+                    });
+                }
+            }
+        }
+
+        //解析图片
+       	function analyzeImg(originImg, cb) {
+            var _this = this
+
+            if (originImg) {
+                if (!/image\/\w+/.test(originImg.type)) {
+                    // alert('请选择png、jpg、jpeg格式图片上传');
+                    return false;
+                }
+
+                try {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(originImg);
+
+                    reader.onload = function(e) {
+                        var result = e.target.result;
+//                            console.log(originImg.size)
+                        var img = new Image();
+                        img.src = e.target.result;
+
+                        if (img.complete) {
+                            callback();
+                        } else {
+                            img.onload = callback;
+                        }
+
+                        function callback() {
+                            compress(img, function(blob, data) {
+                                // console.log(blob.size)
+                                cb && cb(blob, data)
+                            })
+                        }
+                    }
+                } catch (e) {
+                    alert('不支持h5上传');
+                    return false;
+                }
+            } else {
+                return false;
+            }
+            return true;
+        }
+
+
+       
+            function compress(img, cb) {
+            	
+                var canvas = document.createElement("canvas");    // 用于压缩图片的canvas
+                var ctx = canvas.getContext('2d');
+                var tCanvas = document.createElement("canvas");  // 瓦片canvas
+                var tctx = tCanvas.getContext("2d");
+                var rCanvas = document.createElement("canvas");  // 旋转canvas
+                var rctx = rCanvas.getContext("2d");
+
+                var initSize = img.src.length;
+                var width = img.width;
+                var height = img.height;
+                var count, ratio;
+
+                var orient = getOrientation(img)
+                console.log('orient:' + orient)
+
+
+                //如果图片大于四百万像素，计算压缩比并将大小压至400万以下
+                if ((ratio = width * height / 4000000) > 1) {
+                    ratio = Math.sqrt(ratio);
+                    width /= ratio;
+                    height /= ratio;
+                } else {
+                    ratio = 1;
+                }
+
+                canvas.width = rCanvas.width = width;
+                canvas.height = rCanvas.height = height;
+                ctx.fillStyle = "#fff";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                //如果图片像素大于100万则使用瓦片绘制
+                if ((count = width * height / 1000000) > 1) {
+                    count = ~~(Math.sqrt(count) + 1);       // 计算要分成多少块瓦片
+                    var nw = ~~(width / count);             // 计算每块瓦片的宽和高
+                    var nh = ~~(height / count);
+
+                    tCanvas.width = nw;
+                    tCanvas.height = nh;
+
+                    for (var i = 0; i < count; i++) {
+                        for (var j = 0; j < count; j++) {
+                            tctx.drawImage(img, i * nw * ratio, j * nh * ratio, nw * ratio, nh * ratio, 0, 0, nw, nh);
+                            ctx.drawImage(tCanvas, i * nw, j * nh, nw, nh);
+                        }
+                    }
+                } else {
+                    ctx.drawImage(img, 0, 0, width, height);
+                }
+
+                //解决IOS下图片方向不正确的bug
+                if(orient && orient != 1) {
+                    rctx.drawImage(canvas, 0, 0, width, height)
+                    ctx.clearRect(0, 0, width, height)
+                    ctx.save()  //保存状态
+                    ctx.translate(canvas.width / 2, canvas.height / 2)  //设置旋转的中心点
+                    switch (orient) {
+                        case 6:
+                            canvas.width = height
+                            canvas.height = width
+                            ctx.rotate(90 * Math.PI / 180)  //把画布旋转90度
+                            ctx.drawImage(rCanvas, 0, - height)
+                            break
+                        case 3:
+                            ctx.rotate(180 * Math.PI / 180)  //把画布旋转180度
+                            ctx.drawImage(rCanvas, - width / 2, - height / 2)
+                            break
+                        case 8:
+                            canvas.width = height
+                            canvas.height = width
+                            ctx.rotate(270 * Math.PI / 180)  //把画布旋转270度
+                            ctx.drawImage(rCanvas, - width, 0)
+                            break
+                    }
+                    ctx.restore()   //恢复状态
+                }
+
+                // 根据压缩比进行压缩 0.8
+                var imagData = canvas.toDataURL('image/jpeg', 0.8);
+                canvas.toBlob((blob) => {
+                    cb && cb(blob, imagData)
+                }, 'image/jpeg', 0.8);
+
+                tCanvas.width = tCanvas.height = canvas.width = canvas.height = 0;
+                // return imagData;
+            }
+
+            //获取图片的Orientation属性（依赖exif.js）
+            function getOrientation(img) {
+                var orient = null
+                if('function' == typeof EXIF) {
+                    EXIF.getData(img, function() {
+
+                        orient = EXIF.getTag(this, 'Orientation')
+                        console.log(img.exifdata)
+                    })
+                    return orient
+                } else {
+                    console.log('未加载EXIF模块')
+                }
+            }
+
+
+
+
+
+    	$('.evaluateUploadImg').on('click', function (){
+    		document.querySelector('#uploadFileId').click();
+    	})
+    	$('#uploadFileId').on('change', function (e){
+    		uploadImg(e);
+    	})
+
+    </script>
+</body>
+</html>
