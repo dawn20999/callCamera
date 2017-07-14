@@ -72,7 +72,7 @@ header{
 .plainCont{
 	position: relative;
 }
-.placeholder{
+.placeholder,.inforPlaceholder{
 	position: absolute;
 	left: 0;
 	top:0;
