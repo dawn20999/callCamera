@@ -9,8 +9,8 @@
     <meta name="format-detection" content="telephone=no,email=no"/>
     <meta name="apple-touch-fullscreen" content="yes"/>
 	<title>反馈</title>
-	<link rel="stylesheet" href="js/base.css">
-	<link rel="stylesheet" href="js/complain.css">
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/complain.css">
 </head>
 <body>
 	<section>
@@ -24,7 +24,7 @@
 		</header>
 		<article id="tag" class="tag">
 			<section class="content">
-				<div class="plainCont">
+				<div class="plainCont plCont">
 					<p contenteditable="true" class="text plText"></p>
 					<span class="placeholder">请详细描述您要投诉的问题，我们将及时跟进解决</span>
 				</div>
@@ -44,9 +44,9 @@
 		</article>
 		<article class="tag">
 			<section class="content">
-				<div class="plainCont">
+				<div class="plainCont inforCont">
 					<p contenteditable="true" class="text inforText"></p>
-					<span class="placeholder">请将您的建议填写于此处</span>
+					<span class="inforPlaceholder">请将您的建议填写于此处</span>
 				</div>
 				<div class="camera">
 					<span class="plus"></span>
@@ -64,14 +64,18 @@
 		</article>
 	</section>
 </body>
-	<script type="text/javascript" src="js/zepto.min.js"></script>
+	<script type="text/javascript" src="js/zepto.js"></script>
 	<!-- <script src="js/jquery-1.11.1.min.js"></script> -->
 	<script type="text/javascript" src="js/common.js"></script>
 	<script>
 		$(function(){
-			$(".plainCont").on('touchend',function(){
+			$(".plCont").on('touchend',function(){
 				$(".placeholder").hide();
-				$(".text").focus();
+				$(".plText").focus();
+			});
+			$(".inforCont").on('touchend',function(){
+				$(".inforPlaceholder").hide();
+				$(".inforText").focus();
 			});
 			$(".plText").blur(function(){
 				if($(".plText").html() == ''){
@@ -80,7 +84,7 @@
 			});
 			$(".inforText").blur(function(){
 				if($(".inforText").html() == ''){
-					$(".placeholder").show()
+					$(".inforPlaceholder").show()
 				}
 			});
 
@@ -90,16 +94,16 @@
 
 				var index=$('.tag').eq($(this).index()).index();
 				console.log(index)
-				if(index == 1){
-				var pValue=$(".plText").text();
-				var roomNum=$(".roomNum").val();
-				var information=$(".information").val();
-				if(($.trim(pValue) != '' && $.trim(pValue) != undefined) && ($.trim(roomNum) != '' && $.trim(roomNum) != undefined) && ($.trim(information) != '' && $.trim(information) != undefined)){
-						pValue='';
-						roomNum='';
-						information='';
-					}
-				}
+				// if(index == 1){
+				// var pValue=$(".plText").text();
+				// var roomNum=$(".roomNum").val();
+				// var information=$(".information").val();
+				// if(($.trim(pValue) != '' && $.trim(pValue) != undefined) && ($.trim(roomNum) != '' && $.trim(roomNum) != undefined) && ($.trim(information) != '' && $.trim(information) != undefined)){
+				// 		pValue='';
+				// 		roomNum='';
+				// 		information='';
+				// 	}
+				// }
 			});
 
 			
