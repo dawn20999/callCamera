@@ -85,6 +85,7 @@
                 preview.style.height = "63px",  
                 preview.src = window.navigator.userAgent.indexOf("Chrome") >= 1 || window.navigator.userAgent.indexOf("Safari") >= 1 ? window.webkitURL.createObjectURL(file_head.files[0]) : window.URL.createObjectURL(file_head.files[0]);  
                 localImag.appendChild(preview);
+                alert(2)
             }else {  
                 file_head.select(),  
                 file_head.blur(),  
@@ -100,7 +101,8 @@
                     !1  
                 }  
                 preview.style.display = "none",  
-                document.selection.empty()  
+                document.selection.empty()  ;
+                alert(1)
             }  
             return document.getElementById("DivUp").style.display = "block",  
             !0  

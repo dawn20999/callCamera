@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no,email=no"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+	<title>反馈</title>
+	<link rel="stylesheet" href="js/base.css">
+	<link rel="stylesheet" href="js/complain.css">
+</head>
+<body>
+	<section>
+		<header class="clearfix">
+			<div class="pr1 fl">
+				<div class="pr fl">
+					<a href="javascript:;" class="complain fl mr-1 active">我要投诉</a>
+					<a href="javascript:;" class="complain fl ml-1">我要建议</a>
+				</div>
+			</div>
+		</header>
+		<article id="tag" class="tag">
+			<section class="content">
+				<div class="plainCont">
+					<p contenteditable="true" class="text plText"></p>
+					<span class="placeholder">请详细描述您要投诉的问题，我们将及时跟进解决</span>
+				</div>
+				<div class="camera">
+					<span class="plus"></span>
+				</div>
+			</section>
+			<section class="room mt-24">
+				<input class="num roomNum" type="text" placeholder="请输入房间号">
+			</section>
+			<section class="contact mt-24">
+				<input class="num information" type="number" placeholder="请输入您的联系方式">
+			</section>
+			<section class="btn mt-24">
+				<button type="button" class="submit planBtn" disabled="disabled">提交</button>
+			</section>
+		</article>
+		<article class="tag">
+			<section class="content">
+				<div class="plainCont">
+					<p contenteditable="true" class="text inforText"></p>
+					<span class="placeholder">请将您的建议填写于此处</span>
+				</div>
+				<div class="camera">
+					<span class="plus"></span>
+				</div>
+			</section>
+			<section class="room mt-24">
+				<input class="num inforNum" type="text" placeholder="请输入房间号">
+			</section>
+			<section class="contact mt-24">
+				<input class="num teleNum" type="number" placeholder="请输入您的联系方式">
+			</section>
+			<section class="btn mt-24">
+				<button type="button" class="submit inforBtn" disabled="disabled">提交</button>
+			</section>
+		</article>
+	</section>
+</body>
+	<script type="text/javascript" src="js/zepto.min.js"></script>
+	<!-- <script src="js/jquery-1.11.1.min.js"></script> -->
+	<script type="text/javascript" src="js/common.js"></script>
+	<script>
+		$(function(){
+			$(".plainCont").on('touchend',function(){
+				$(".placeholder").hide();
+				$(".text").focus();
+			});
+			$(".plText").blur(function(){
+				if($(".plText").html() == ''){
+					$(".placeholder").show()
+				}
+			});
+			$(".inforText").blur(function(){
+				if($(".inforText").html() == ''){
+					$(".placeholder").show()
+				}
+			});
+
+			$(".complain").on('touchend',function(){
+				$(".complain").eq($(this).index()).addClass('active').siblings().removeClass('active');
+				$(".tag").hide().eq($(this).index()).show();
+
+				var index=$('.tag').eq($(this).index()).index();
+				console.log(index)
+				if(index == 1){
+				var pValue=$(".plText").text();
+				var roomNum=$(".roomNum").val();
+				var information=$(".information").val();
+				if(($.trim(pValue) != '' && $.trim(pValue) != undefined) && ($.trim(roomNum) != '' && $.trim(roomNum) != undefined) && ($.trim(information) != '' && $.trim(information) != undefined)){
+						pValue='';
+						roomNum='';
+						information='';
+					}
+				}
+			});
+
+			
+			$(".plText").on('input',function(){
+				var pValue=$(".plText").text();
+				var roomNum=$(".roomNum").val();
+				var information=$(".information").val();
+				if(($.trim(pValue) != '' && $.trim(pValue) != undefined) && ($.trim(roomNum) != '' && $.trim(roomNum) != undefined) && ($.trim(information) != '' && $.trim(information) != undefined)){
+					$(".planBtn").css('background-color','#239de6');
+					$(".planBtn").attr('disabled',false)
+				}else{
+					$(".planBtn").css('background-color','#b1c3cd');
+					$(".planBtn").attr('disabled','disabled');
+				}
+			});
+			$(".roomNum").on('input',function(){
+				var pValue=$(".plText").text();
+				var roomNum=$(".roomNum").val();
+				var information=$(".information").val();
+				if(($.trim(pValue) != '' && $.trim(pValue) != undefined) && ($.trim(roomNum) != '' && $.trim(roomNum) != undefined) && ($.trim(information) != '' && $.trim(information) != undefined)){
+					$(".planBtn").css('background-color','#239de6');
+					$(".planBtn").attr('disabled',false)
+				}else{
+					$(".planBtn").css('background-color','#b1c3cd');
+					$(".planBtn").attr('disabled','disabled')
+				}
+			});
+			$(".information").on('input',function(){
+				var pValue=$(".plText").text();
+				var roomNum=$(".roomNum").val();
+				var information=$(".information").val();
+				if(($.trim(pValue) != '' && $.trim(pValue) != undefined) && ($.trim(roomNum) != '' && $.trim(roomNum) != undefined) && ($.trim(information) != '' && $.trim(information) != undefined)){
+					$(".planBtn").css('background-color','#239de6');
+					$(".planBtn").attr('disabled',false)
+				}else{
+					$(".planBtn").css('background-color','#b1c3cd');
+					$(".planBtn").attr('disabled','disabled')
+				}
+			});
+			
+			$(".planBtn").on('touchend',function(){
+				var pValue=$(".plText").text();
+				var roomNum=$(".roomNum").val();
+				var information=$(".information").val();
+				console.log(pValue,roomNum,information)
+				if(($.trim(pValue) != '' && $.trim(pValue) != undefined) && ($.trim(roomNum) != '' && $.trim(roomNum) != undefined) && ($.trim(information) != '' && $.trim(information) != undefined)){
+					console.log('我要投诉')
+				}
+			});
+
+
+			$(".inforText").on('input',function(){
+				var inforText=$(".inforText").text();
+				var inforNum=$(".inforNum").val();
+				var teleNum=$(".teleNum").val();
+				if(($.trim(inforText) != '' && $.trim(inforText) != undefined) && ($.trim(inforNum) != '' && $.trim(inforNum) != undefined) && ($.trim(teleNum) != '' && $.trim(teleNum) != undefined)){
+					$(".inforBtn").css('background-color','#239de6');
+					$(".inforBtn").attr('disabled',false)
+				}else{
+					$(".inforBtn").css('background-color','#b1c3cd');
+					$(".inforBtn").attr('disabled','disabled');
+				}
+			});
+			$(".inforNum").on('input',function(){
+				var inforText=$(".inforText").text();
+				var inforNum=$(".inforNum").val();
+				var teleNum=$(".teleNum").val();
+				if(($.trim(inforText) != '' && $.trim(inforText) != undefined) && ($.trim(inforNum) != '' && $.trim(inforNum) != undefined) && ($.trim(teleNum) != '' && $.trim(teleNum) != undefined)){
+					$(".inforBtn").css('background-color','#239de6');
+					$(".inforBtn").attr('disabled',false)
+				}else{
+					$(".inforBtn").css('background-color','#b1c3cd');
+					$(".inforBtn").attr('disabled','disabled')
+				}
+			});
+			$(".teleNum").on('input',function(){
+				var inforText=$(".inforText").text();
+				var inforNum=$(".inforNum").val();
+				var teleNum=$(".teleNum").val();
+				if(($.trim(inforText) != '' && $.trim(inforText) != undefined) && ($.trim(inforNum) != '' && $.trim(inforNum) != undefined) && ($.trim(teleNum) != '' && $.trim(teleNum) != undefined)){
+					$(".inforBtn").css('background-color','#239de6');
+					$(".inforBtn").attr('disabled',false)
+				}else{
+					$(".inforBtn").css('background-color','#b1c3cd');
+					$(".inforBtn").attr('disabled','disabled')
+				}
+			});
+			$(".inforBtn").on('touchend',function(){
+				var inforText=$(".inforText").text();
+				var inforNum=$(".inforNum").val();
+				var teleNum=$(".teleNum").val();
+				console.log(inforText,inforNum,teleNum)
+				if(($.trim(inforText) != '' && $.trim(inforText) != undefined) && ($.trim(inforNum) != '' && $.trim(inforNum) != undefined) && ($.trim(teleNum) != '' && $.trim(teleNum) != undefined)){
+					console.log('建议')
+				}
+			});
+		})
+	</script>
+</html>
