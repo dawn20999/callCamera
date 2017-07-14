@@ -79,12 +79,41 @@ header{
 	color:#aeb9bf;
 	font-size: 0.28rem;
 }
-.plus{
+#localImag img{
+	float: left;
+}
+.btn-plus{
 	height:1.08rem;
 	width:1.08rem;
 	display:block;
 	position:relative;
+	overflow: hidden;
 	border:1px solid #bbc1bf;
+}
+.btn-file{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+}
+#file_head{
+	position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    opacity: .01;
+    filter: alpha(opacity=1);
+    cursor: pointer;
+    z-index: 1;
+}
+.plus{
+	/*height:1.08rem;
+	width:1.08rem;*/
+	width: 100%;
+	height: 100%;
+	display:block;
+	position:relative;
 } 
 .plus:before, .plus:after{
 	content:'';
