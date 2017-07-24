@@ -82,6 +82,9 @@ header{
 #localImag img{
 	float: left;
 }
+#localImag1 img{
+	float: left;
+}
 .btn-plus{
 	height:1.08rem;
 	width:1.08rem;

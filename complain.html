@@ -9,8 +9,8 @@
     <meta name="format-detection" content="telephone=no,email=no"/>
     <meta name="apple-touch-fullscreen" content="yes"/>
 	<title>反馈</title>
-	<link rel="stylesheet" href="css/base.css">
-	<link rel="stylesheet" href="css/complain.css">
+	<link rel="stylesheet" href="js/base.css">
+	<link rel="stylesheet" href="js/complain.css">
 </head>
 <body>
 	<section>
@@ -29,7 +29,7 @@
 					<span class="placeholder">请详细描述您要投诉的问题，我们将及时跟进解决</span>
 				</div>
 				<div class="camera">
-					<div id="localImag"></div>
+					<div id="localImag clearfix"></div>
 					<div class="btn-plus">
 						<label for="" class="btn-file"> 
 							<span class="plus"></span>
@@ -55,7 +55,13 @@
 					<span class="inforPlaceholder">请将您的建议填写于此处</span>
 				</div>
 				<div class="camera">
-					<span class="plus"></span>
+					<div id="localImag1 clearfix"></div>
+					<div class="btn-plus">
+						<label for="" class="btn-file"> 
+							<span class="plus"></span>
+							<input type="file" name="file_head" id="file_head1" onchange="javascript:setImagePreview1();" /> 
+						</label>
+					</div>
 				</div>
 			</section>
 			<section class="room mt-24">
@@ -70,10 +76,42 @@
 		</article>
 	</section>
 </body>
-	<script type="text/javascript" src="js/zepto.js"></script>
+	<script type="text/javascript" src="js/zepto.min.js"></script>
 	<!-- <script src="js/jquery-1.11.1.min.js"></script> -->
 	<script type="text/javascript" src="js/common.js"></script>
 	<script>
+			function setImagePreview1(){
+				var img_txt, 
+                localImag, 
+                file_head = document.getElementById("file_head1"),  
+                picture = file_head.value;  
+	            if (!picture.match(/.jpg|.gif|.png|.bmp/i)) {
+	                return alert("您上传的图片格式不正确，请重新选择！")
+	            };
+	            if (localImag = document.getElementById("localImag1"), file_head.files && file_head.files[0]){
+	                var preview=document.createElement('img');
+
+	                preview.style.display = "block",  
+	                preview.style.width = "55px",  
+	                preview.style.height = "55px",  
+	                preview.src = window.navigator.userAgent.indexOf("Chrome") >= 1 || window.navigator.userAgent.indexOf("Safari") >= 1 ? window.webkitURL.createObjectURL(file_head.files[0]) : window.URL.createObjectURL(file_head.files[0]);  
+	                localImag.appendChild(preview);
+	                // alert(2)
+	            }else { 
+	            	file_head.select(),  
+	            	file_head.blur(),  
+	            	img_txt = document.selection.createRange().text;
+	                try {  
+	                	localImag.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)",  
+	                	localImag.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = img_txt  
+	                } catch(f) {  
+	                	return alert("您上传的图片格式不正确，请重新选择！")
+	                }
+	                preview.style.display = "none",  
+	                document.selection.empty()  ;
+	                alert(1)
+	            }
+			}
 			function setImagePreview(){
 				var img_txt, 
                 localImag, 
