@@ -122,7 +122,6 @@
 	            };
 	            if (localImag = document.getElementById("localImag"), file_head.files && file_head.files[0]){
                 	var preview=document.createElement('img');
-console.log(localImag)
 	                preview.style.display = "block",  
 	                preview.style.width = "55px",  
 	                preview.style.height = "55px",  
@@ -184,7 +183,7 @@ console.log(localImag)
 			});
 
 			
-			$(".plText").on('input',function(){
+			$(".plText").add(".roomNum").add(".information").on('input',function(){
 				var pValue=$(".plText").text();
 				var roomNum=$(".roomNum").val();
 				var information=$(".information").val();
@@ -196,30 +195,30 @@ console.log(localImag)
 					$(".planBtn").attr('disabled','disabled');
 				}
 			});
-			$(".roomNum").on('input',function(){
-				var pValue=$(".plText").text();
-				var roomNum=$(".roomNum").val();
-				var information=$(".information").val();
-				if(($.trim(pValue) != '' && $.trim(pValue) != undefined) && ($.trim(roomNum) != '' && $.trim(roomNum) != undefined) && ($.trim(information) != '' && $.trim(information) != undefined)){
-					$(".planBtn").css('background-color','#239de6');
-					$(".planBtn").attr('disabled',false)
-				}else{
-					$(".planBtn").css('background-color','#b1c3cd');
-					$(".planBtn").attr('disabled','disabled')
-				}
-			});
-			$(".information").on('input',function(){
-				var pValue=$(".plText").text();
-				var roomNum=$(".roomNum").val();
-				var information=$(".information").val();
-				if(($.trim(pValue) != '' && $.trim(pValue) != undefined) && ($.trim(roomNum) != '' && $.trim(roomNum) != undefined) && ($.trim(information) != '' && $.trim(information) != undefined)){
-					$(".planBtn").css('background-color','#239de6');
-					$(".planBtn").attr('disabled',false)
-				}else{
-					$(".planBtn").css('background-color','#b1c3cd');
-					$(".planBtn").attr('disabled','disabled')
-				}
-			});
+			// $(".roomNum").on('input',function(){
+			// 	var pValue=$(".plText").text();
+			// 	var roomNum=$(".roomNum").val();
+			// 	var information=$(".information").val();
+			// 	if(($.trim(pValue) != '' && $.trim(pValue) != undefined) && ($.trim(roomNum) != '' && $.trim(roomNum) != undefined) && ($.trim(information) != '' && $.trim(information) != undefined)){
+			// 		$(".planBtn").css('background-color','#239de6');
+			// 		$(".planBtn").attr('disabled',false)
+			// 	}else{
+			// 		$(".planBtn").css('background-color','#b1c3cd');
+			// 		$(".planBtn").attr('disabled','disabled')
+			// 	}
+			// });
+			// $(".information").on('input',function(){
+			// 	var pValue=$(".plText").text();
+			// 	var roomNum=$(".roomNum").val();
+			// 	var information=$(".information").val();
+			// 	if(($.trim(pValue) != '' && $.trim(pValue) != undefined) && ($.trim(roomNum) != '' && $.trim(roomNum) != undefined) && ($.trim(information) != '' && $.trim(information) != undefined)){
+			// 		$(".planBtn").css('background-color','#239de6');
+			// 		$(".planBtn").attr('disabled',false)
+			// 	}else{
+			// 		$(".planBtn").css('background-color','#b1c3cd');
+			// 		$(".planBtn").attr('disabled','disabled')
+			// 	}
+			// });
 			
 			$(".planBtn").on('touchend',function(){
 				var pValue=$(".plText").text();
@@ -232,7 +231,7 @@ console.log(localImag)
 			});
 
 
-			$(".inforText").on('input',function(){
+			$(".inforText").add(".inforNum").add(".teleNum").on('input',function(){
 				var inforText=$(".inforText").text();
 				var inforNum=$(".inforNum").val();
 				var teleNum=$(".teleNum").val();
@@ -244,30 +243,30 @@ console.log(localImag)
 					$(".inforBtn").attr('disabled','disabled');
 				}
 			});
-			$(".inforNum").on('input',function(){
-				var inforText=$(".inforText").text();
-				var inforNum=$(".inforNum").val();
-				var teleNum=$(".teleNum").val();
-				if(($.trim(inforText) != '' && $.trim(inforText) != undefined) && ($.trim(inforNum) != '' && $.trim(inforNum) != undefined) && ($.trim(teleNum) != '' && $.trim(teleNum) != undefined)){
-					$(".inforBtn").css('background-color','#239de6');
-					$(".inforBtn").attr('disabled',false)
-				}else{
-					$(".inforBtn").css('background-color','#b1c3cd');
-					$(".inforBtn").attr('disabled','disabled')
-				}
-			});
-			$(".teleNum").on('input',function(){
-				var inforText=$(".inforText").text();
-				var inforNum=$(".inforNum").val();
-				var teleNum=$(".teleNum").val();
-				if(($.trim(inforText) != '' && $.trim(inforText) != undefined) && ($.trim(inforNum) != '' && $.trim(inforNum) != undefined) && ($.trim(teleNum) != '' && $.trim(teleNum) != undefined)){
-					$(".inforBtn").css('background-color','#239de6');
-					$(".inforBtn").attr('disabled',false)
-				}else{
-					$(".inforBtn").css('background-color','#b1c3cd');
-					$(".inforBtn").attr('disabled','disabled')
-				}
-			});
+			// $(".inforNum").on('input',function(){
+			// 	var inforText=$(".inforText").text();
+			// 	var inforNum=$(".inforNum").val();
+			// 	var teleNum=$(".teleNum").val();
+			// 	if(($.trim(inforText) != '' && $.trim(inforText) != undefined) && ($.trim(inforNum) != '' && $.trim(inforNum) != undefined) && ($.trim(teleNum) != '' && $.trim(teleNum) != undefined)){
+			// 		$(".inforBtn").css('background-color','#239de6');
+			// 		$(".inforBtn").attr('disabled',false)
+			// 	}else{
+			// 		$(".inforBtn").css('background-color','#b1c3cd');
+			// 		$(".inforBtn").attr('disabled','disabled')
+			// 	}
+			// });
+			// $(".teleNum").on('input',function(){
+			// 	var inforText=$(".inforText").text();
+			// 	var inforNum=$(".inforNum").val();
+			// 	var teleNum=$(".teleNum").val();
+			// 	if(($.trim(inforText) != '' && $.trim(inforText) != undefined) && ($.trim(inforNum) != '' && $.trim(inforNum) != undefined) && ($.trim(teleNum) != '' && $.trim(teleNum) != undefined)){
+			// 		$(".inforBtn").css('background-color','#239de6');
+			// 		$(".inforBtn").attr('disabled',false)
+			// 	}else{
+			// 		$(".inforBtn").css('background-color','#b1c3cd');
+			// 		$(".inforBtn").attr('disabled','disabled')
+			// 	}
+			// });
 			$(".inforBtn").on('touchend',function(){
 				var inforText=$(".inforText").text();
 				var inforNum=$(".inforNum").val();
