@@ -79,6 +79,7 @@
             //     preview.src = window.navigator.userAgent.indexOf("Chrome") >= 1 || window.navigator.userAgent.indexOf("Safari") >= 1 ? window.webkitURL.createObjectURL(file_head.files[0]) : window.URL.createObjectURL(file_head.files[0]);  
             if (localImag = document.getElementById("localImag"), file_head.files && file_head.files[0]){
                 var preview=document.createElement('img');
+console.log(localImag)
 
                 preview.style.display = "block",  
                 preview.style.width = "63px",  

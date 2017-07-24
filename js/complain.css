@@ -99,7 +99,7 @@ header{
 	height: 100%;
 	display: inline-block;
 }
-#file_head{
+#file_head,#file_head1{
 	position: absolute;
     top: 0;
     right: 0;
